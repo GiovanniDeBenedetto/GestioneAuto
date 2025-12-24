@@ -1,0 +1,15 @@
+{
+  "name": "Pieno",
+  "short_name": "Pieno",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1565c0",
+  "icons": [
+    {
+      "src": "icons/xxhdpi.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }
+  ]
+}

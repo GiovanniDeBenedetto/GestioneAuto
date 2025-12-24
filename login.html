@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pieno - Login</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+</head>
+<body>
+  <main class="container narrow">
+    <section class="card">
+      <h1>Login</h1>
+      <form id="login-form">
+        <label>Username
+          <select id="username" required>
+            <!-- dynamic users -->
+          </select>
+        </label>
+        <label>Preferenza (macchina)
+          <select id="preferredMachine">
+            <!-- dynamic -->
+          </select>
+        </label>
+        <div class="actions">
+          <button type="submit">Login</button>
+        </div>
+      </form>
+      <p class="muted">Le credenziali vengono salvate nel <code>localStorage</code> del browser per le prossime aperture.</p>
+    </section>
+  </main>
+
+
+ <script type="text/javascript" src="js/config.json"></script>
+ <script>
+  // Load config.json synchronously to allow immediate usage
+  function loadConfigSync(){
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'js/config.json', false); // synchronous
+    try{
+      xhr.send(null);
+      if(xhr.status === 200 || xhr.status === 0){
+        return JSON.parse(xhr.responseText);
+      }
+    }catch(e){ console.error('Failed to load config.json', e); }
+    return null;
+  }
+
+  $(function(){
+    var cfg = loadConfigSync();
+    var machines = ['Kia','Panda','Stelvio','Roulotte'];
+    var users = [];
+    var token = 'Stellina';
+    if(cfg){
+      machines = cfg.macchine || machines;
+      users = (cfg.user||[]);
+      token = cfg.sk_token || token;
+    }
+
+    // populate machines
+    var sel = $('#preferredMachine');
+    sel.empty();
+    machines.forEach(function(m){ sel.append('<option>'+m+'</option>'); });
+
+    // populate user select
+    var us = $('#username');
+    us.empty();
+    users.forEach(function(u){ us.append('<option data-pref="'+(u.preferredMachine||'')+'">'+u.username+'</option>'); });
+
+    // when user changes, if user has preferred machine set in config, use it
+    us.on('change', function(){
+      var opt = $(this).find('option:selected');
+      var pm = opt.data('pref');
+      if(pm) $('#preferredMachine').val(pm);
+    });
+
+    $('#login-form').on('submit', function(e){
+      e.preventDefault();
+      var username = $('#username').val();
+      var pref = $('#preferredMachine').val();
+      if(!username){ alert('Inserisci username'); return; }
+      localStorage.setItem('sk_username', username);
+      localStorage.setItem('sk_preferredMachine', pref);
+      // save token from config
+      localStorage.setItem('sk_token', token);
+      window.location.href = 'index.html';
+    });
+
+    // Prefill if present
+    var saved = localStorage.getItem('sk_username');
+    if(saved) $('#username').val(saved);
+    var pm = localStorage.getItem('sk_preferredMachine');
+    if(pm) $('#preferredMachine').val(pm);
+
+    // trigger change to set pref if user option has data-pref
+    $('#username').trigger('change');
+  });
+  </script>
+</body>
+</html>

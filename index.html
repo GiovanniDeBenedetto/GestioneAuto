@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pieno</title>
+  <link href="https://fonts.googleapis.com/css?family=Oswald|Raleway&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <h1>Fuel Management</h1>
+  </header>
+
+  <main class="container narrow">
+    <!-- user header (big name + logout) -->
+    <section class="card user-card">
+      <div class="user-header">
+        <div id="welcome-msg" class="user-name">Caricamento...</div>
+        <a id="logout" class="logout-icon" title="Logout">Logout ⤴</a>
+      </div>
+      <a class="button big primary" href="statistiche.html">Statistiche</a>
+    </section>
+
+    <section class="card">
+      <form id="record-form">
+        <div class="row-inline">
+          <div style="flex:1">
+            <label>Macchina
+              <select id="macchina">
+                <!-- dynamics -->
+              </select>
+            </label>
+          </div>
+          <div style="width:120px;display:flex;align-items:center;gap:8px;margin-left:12px;">
+            <label style="margin:0">Benzina?</label>
+            <input type="checkbox" id="benzinaChk" />
+          </div>
+        </div>
+        <label>
+          <input type="number" id="km" step="0.1" placeholder="Kilometri" />
+        </label>
+        <label>
+          <input type="number" id="eur" step="0.01" placeholder="Euro" />
+        </label>
+        <label>
+          <input type="number" id="litri" step="0.001" placeholder="Euro/Litro oppure Litri" />
+        </label>
+
+        <div id="toggler" style="margin:10px 0;text-align:center">Altro</div>
+        <div style="display:none" id="toggle">
+          <label>Autista
+            <input type="text" id="autista" required placeholder="Autista" />
+          </label>
+          <label>Giorno
+            <input type="date" id="date" required />
+          </label>
+          <label>Note
+            <textarea id="note" placeholder="-- Note" rows="3" style="resize:vertical"></textarea>
+          </label>
+          <label>Allega file
+            <input type="file" id="file-attach" />
+          </label>
+        </div>
+        <div class="actions" style="margin-top:12px">
+          <button type="submit" id="submit-btn" class="button big">Invia</button>
+        </div>
+        <div id="form-result" class="muted"></div>
+      </form>
+    </section>
+
+    <section class="card" style="text-align:center" id ="mybtn00">
+      <a class="button ghost" id="download-app" >Scarica l'App</a>
+    </section>
+  </main>
+
+ <script src="js/app.js"></script>
+ <script>
+
+
+
+	
+//Scarica l'app
+if ('serviceWorker' in navigator) {
+			window.addEventListener('load', () => {
+				navigator.serviceWorker.register('sw.js')
+				.then(swReg => {
+				console.log('Service Worker is registered', swReg);
+				})
+				.catch(err => {
+				console.error('Service Worker Error', err);
+				});
+			});
+		}
+            
+        let deferredPrompt;
+        const addBtn = document.querySelector('#mybtn00');
+        const msec=document.querySelector('#download-app');
+        msec.style.display = 'none'; 
+        addBtn.style.display = 'none';   
+			 window.addEventListener('beforeinstallprompt', (e) => {
+			// Prevent Chrome 67 and earlier from automatically showing the prompt
+				e.preventDefault();
+				// Stash the event so it can be triggered later.
+				deferredPrompt = e;
+				// Update UI to notify the user they can add to home screen
+				addBtn.style.display = 'block';
+				msec.style.display = 'block';
+
+				addBtn.addEventListener('click', (e) => {
+				// hide our user interface that shows our A2HS button
+				addBtn.style.display = 'none';
+				// Show the prompt
+				deferredPrompt.prompt();
+				// Wait for the user to respond to the prompt
+				deferredPrompt.userChoice.then((choiceResult) => {
+					if (choiceResult.outcome === 'accepted') {
+					console.log('User accepted the A2HS prompt');
+					alert("Chiudi il Browser e procedi con l'app");
+					} else {
+					console.log('User dismissed the A2HS prompt');
+					}
+					deferredPrompt = null;
+				});
+				});
+			});
+/*			//Service worker
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js')
+    .then(reg => console.log('service worker registered', reg))
+    .catch(err => console.log('service worker not registered', err));
+}*/
+
+window.addEventListener('appinstalled', (evt) => {
+  // Log install to analytics
+  console.log('INSTALL: Success');
+});
+
+
+
+
+
+window.addEventListener('DOMContentLoaded', () => {
+  let displayMode = 'browser tab';
+  if (navigator.standalone) {
+    displayMode = 'standalone-ios';
+  }
+  if (window.matchMedia('(display-mode: standalone)').matches) {
+    displayMode = 'standalone';
+  }
+  // Log launch display mode to analytics
+  console.log('DISPLAY_MODE_LAUNCH:', displayMode);
+});
+
+
+
+
+window.addEventListener('DOMContentLoaded', () => {
+  window.matchMedia('(display-mode: standalone)').addListener((evt) => {
+    let displayMode = 'browser tab';
+    if (evt.matches) {
+      displayMode = 'standalone';
+    }
+    // Log display mode change to analytics
+    console.log('DISPLAY_MODE_CHANGED', displayMode);
+  });
+});
+
+ </script>
+</body>
+</html>

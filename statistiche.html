@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pieno - Statistiche</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <h1>Statistiche</h1>
+  </header>
+  <main class="container">
+    <section class="card">
+      <div class="filters">
+        <label>Macchina:
+          <select id="filter-machine"><option>All</option></select>
+        </label>
+        <label>Autista:
+          <select id="filter-driver"><option>All</option></select>
+        </label>
+        <button id="refresh">Aggiorna</button>
+      </div>
+    </section>
+    <!--
+    <section class="card">
+      <h3>Andamento annuale</h3>
+      <div class="chart-controls">
+          <button class="chart-btn" data-mode="km">KM</button>
+          <button class="chart-btn" data-mode="eur">Euro</button>
+          <button class="chart-btn" data-mode="eur_km">€/KM</button>
+      </div>
+      <canvas id="chart-annual" height="120"></canvas>
+    </section>
+    -->
+    <section class="card">
+      <h3>Storico</h3>
+      <div id="table-wrap" class="table-wrap">
+        <table id="records-table">
+          <thead><tr>
+            <th>Data</th>
+            <th>Macchina</th>
+            <th>Autista</th>
+            <th>km</th>
+            <th>€</th>
+            <th>L</th>
+            <th>€/L</th>
+            <th>Benzina</th>
+            <th>File</th>
+            <th>Note</th>
+            <th>Cancella</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card">
+      <a class="button" href="index.html">Torna</a>
+    </section>
+  </main>
+ <script type="text/javascript" src="js/config.json"></script>
+  <script src="js/statistics.js"></script>
+</body>
+</html>

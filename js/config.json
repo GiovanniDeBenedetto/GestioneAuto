@@ -1,0 +1,62 @@
+{
+    "user":[
+        {
+            "username":"Gio",
+            "password":"password123"
+        },
+        {
+            "username":"Stellina",
+            "password":"securepass"
+        },
+        {
+            "username":"Anto",
+            "password":"mypassword"
+        },{
+            "username":"Clelia",
+            "password":"mypassword"
+        },{
+            "username":"Lella",
+            "password":"mypassword"
+        }
+    ],
+    "apiEndpoint":"https://script.google.com/macros/s/AKfycbydE0oTInWdYZZW6PofjAyL5YlS3QndCozQpsc-OgUAAIiivr2h_9UAiOkSNeSwIS8P/exec",
+    "macchine":[
+        "Zaffira",
+        "Punto Anto", 
+        "Punto Stellina",
+        "Ypsilon"
+    ],
+    "sk_token":"Stellina",
+    "appDownload":"" ,
+
+
+    "_user":[
+        {
+            "username":"Gio",
+            "password":"password123"
+        },
+        {
+            "username":"Enrico",
+            "password":"securepass"
+        },
+        {
+            "username":"Mamma",
+            "password":"mypassword"
+        },{
+            "username":"Papà",
+            "password":"mypassword"
+        },{
+            "username":"Utente",
+            "password":"mypassword"
+        }
+    ],
+    "_apiEndpoint":"https://script.google.com/macros/s/AKfycbxkWY9YEU3Ip_JN_Ag1zIZ3-8HaXaktTsW0nOyZOt0I3h_XqXS2gSbGPeGa21CQebwR/exec",
+    "_macchine":[
+        "Kia",
+        "Panda",
+        "Stelvio",
+        "Rulotta"
+    ],
+
+
+}
