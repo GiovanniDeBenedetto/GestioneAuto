@@ -57,6 +57,7 @@ $(function(){
 
   function doSendPayload(payload){
     $('#submit-btn').prop('disabled', true).text('Invio...');
+    $('#form-result').html("<img class=\"immagini\" src=\"img/loading.gif\" alt=\"Loading...\">");
     $.ajax({
       url: API_URL,
       method: 'POST',
@@ -64,7 +65,7 @@ $(function(){
       data: JSON.stringify(payload),
       success: function(res){
         console.log('POST OK:', res);
-        $('#form-result').text('Record salvato con successo.');
+        $('#form-result').html("<img class=\"immagini\" src=\"img/done.png\" alt=\"done\">");
         $('#submit-btn').prop('disabled', false).text('Salva');
         // clear some fields
         $('#km,#eur,#litri,#note,#file-attach').val('');

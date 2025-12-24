@@ -13,6 +13,9 @@
     <h1>Statistiche</h1>
   </header>
   <main class="container">
+      <section class="card">
+        <a class="button" href="index.html">Paagina principale</a>
+      </section>
     <section class="card">
       <div class="filters">
         <label>Macchina:
@@ -38,7 +41,11 @@
     <section class="card">
       <h3>Storico</h3>
       <section class="card">
-        <a class="button" href="index.html">Torna</a>
+        <a class="button toggle active" data-database="database">Rifornimenti</a>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a class="button toggle" data-database="Manutenzione" style="float:right;">Manutenzione</a>
+      </section>
+      <section class="card">
       </section>
       <div id="table-wrap" class="table-wrap">
         <table id="records-table">

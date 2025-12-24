@@ -1,5 +1,7 @@
 // statistics page script
 var rows = [];
+var database = 'database'; // default database
+
 $(function(){
   function loadConfigSync(){
     var xhr = new XMLHttpRequest();
@@ -17,11 +19,13 @@ $(function(){
 
   function fetchData(){
     $('#records-table tbody').empty();
+    $("#records-table tbody").append('<tr><td colspan="11" style="text-align:center;"><img class="immagini" src="img/loading.gif" alt="Loading..."></td></tr>');
     $('#chart-annual').hide();
     $.ajax({
       url: API_URL,
       method: 'GET',
       dataType: 'json',
+      data: { token: token , database: database },
       success: function(res){
         if(!res || !res.rows) return;
         rows = res.rows.reverse(); // most recent first
@@ -65,7 +69,7 @@ $(function(){
           url: API_URL,
           method: 'GET',
           //contentType: 'json',
-          data: { token: token, action: 'delete', id: r.id , database: 'database' },
+          data: { token: token, action: 'delete', id: r.id , database: database },
           success: function(resp){
             console.log('DELETE resp', resp);
             // if backend returns success, remove row, else show message
@@ -196,6 +200,12 @@ $(function(){
   });
 
   $('#refresh').on('click', fetchData);
+  $('.toggle').on('click', function(){
+      database = $(this).data('database');
+      fetchData();
+      $('.toggle').removeClass('active');
+      $(this).addClass('active');
+  });
 
   // initial load
   fetchData();

@@ -82,3 +82,18 @@ tbody td{padding:0px;border-bottom:1px solid #f3f6fb;color:#ffffff;text-align:ce
 /* subtle hover */
 tr:hover{background:linear-gradient(90deg, rgba(43,123,211,0.02), rgba(21,101,192,0.01))}
 /* end of stylesheet */
+.active{
+  background: #ffffff;
+  color: var(--card);
+}
+#form-result{
+    display: flex;
+    justify-content: center;
+}
+.immagini{
+  margin: 10px;
+  width: 40vw;
+  max-width: 150px;
+
+
+}
